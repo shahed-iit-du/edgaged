@@ -1,40 +1,287 @@
 <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport"
-  content="width=device-width, initial-
-  scale=1.0">
-      <title>Edgaged - Video Generator
-  Publisher</title>
-      <style>
-        body {                                            font-family: -apple-system,
-  BlinkMacSystemFont, "Segoe UI", Roboto,
-  sans-serif;
-          max-width: 800px;
-          margin: 50px auto;                              padding: 0 20px;
-          line-height: 1.6;
-          color: #333;
-        }
-        h1 { color: #111; }                             nav a {
-          margin-right: 15px;
-          color: #0066cc;
-          text-decoration: none;
-          font-weight: 500;                             }
-        nav a:hover { text-decoration:
-  underline; }
-      </style>
-    </head>
-    <body>
-      <h1>Edgaged Video Generator
-  Publisher</h1>
-      <p>Automated pipeline for rendering
-  educational animation shorts and publishing
-  them to social channels.</p>
-      <nav>                                             <a href="terms.html">Terms of
-  Service</a>
-        <a href="privacy.html">Privacy
-  Policy</a>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edgaged - AI Educational Video Generator & Publisher</title>
+  <meta name="description" content="Automated AI-powered pipeline generating STEM educational animations and publishing to TikTok, YouTube, and Facebook.">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #0f172a;
+      --accent: #f59e0b;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #334155;
+      --text-heading: #0f172a;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+    .logo span { color: var(--primary); }
+    nav a {
+      margin-left: 1.5rem;
+      text-decoration: none;
+      color: var(--text);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--primary); }
+    .hero {
+      padding: 4.5rem 1.5rem 3.5rem;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.35rem 0.9rem;
+      background: #dbeafe;
+      color: var(--primary-dark);
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 {
+      font-size: 2.5rem;
+      color: var(--text-heading);
+      line-height: 1.2;
+      margin-bottom: 1.25rem;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 1.15rem;
+      color: #64748b;
+      margin-bottom: 2rem;
+    }
+    .section {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem;
+    }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .section-title h2 {
+      font-size: 2rem;
+      color: var(--text-heading);
+      margin-bottom: 0.5rem;
+    }
+    .section-title p { color: #64748b; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+    .card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    }
+    .card h3 {
+      font-size: 1.25rem;
+      color: var(--text-heading);
+      margin-bottom: 0.75rem;
+    }
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      counter-reset: step-counter;
+    }
+    .step-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+      position: relative;
+    }
+    .step-card::before {
+      counter-increment: step-counter;
+      content: "0" counter(step-counter);
+      font-size: 2rem;
+      font-weight: 800;
+      color: #cbd5e1;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+    .step-card h4 {
+      font-size: 1.15rem;
+      color: var(--text-heading);
+      margin-bottom: 0.5rem;
+    }
+    .banner {
+      background: var(--secondary);
+      color: #ffffff;
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      margin: 2rem 0;
+    }
+    .banner h2 { font-size: 2rem; margin-bottom: 1rem; color: #fff; }
+    .banner p { color: #94a3b8; max-width: 650px; margin: 0 auto; }
+    footer {
+      background: #ffffff;
+      border-top: 1px solid var(--border);
+      padding: 3rem 1.5rem;
+      margin-top: 4rem;
+    }
+    .footer-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .footer-links a {
+      display: block;
+      color: #64748b;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--primary); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo">📐 <span>Edgaged</span> Studio</a>
+      <nav>
+        <a href="#features">Features</a>
+        <a href="#workflow">Workflow</a>
+        <a href="#about">About</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
       </nav>
-    </body>
-    </html>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="badge">🚀 Automated Video Pipeline</div>
+      <h1>Intelligent STEM Educational Video Generator & Publisher</h1>
+      <p>
+        Edgaged Studio is an automated pipeline that ingests curriculum concepts, drafts intuitive storyboards, generates programmatic Manim animations, and seamlessly publishes bite-sized educational video shorts to verified TikTok and social channels.
+      </p>
+    </section>
+
+    <section id="features" class="section">
+      <div class="section-title">
+        <h2>Core Platform Features</h2>
+        <p>Purpose-built for science, math, and STEM educational content creation</p>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <h3>🎬 Storyboard & Manim Engine</h3>
+          <p>Transforms complex scientific formulas, physics concepts, and algebraic models into high-definition, 60fps programmatic animations using the Manim mathematical animation framework.</p>
+        </div>
+        <div class="card">
+          <h3>🎙️ Synchronized AI Voiceover</h3>
+          <p>Generates high-clarity educational narrations and perfectly aligns subtitle timings with on-screen mathematical scene transitions.</p>
+        </div>
+        <div class="card">
+          <h3>📱 TikTok Direct Video Publishing</h3>
+          <p>Utilizes the official TikTok Content Posting API to directly publish finished educational video shorts with optimized descriptions, tags, and educational metadata.</p>
+        </div>
+        <div class="card">
+          <h3>🔍 Automated Visual QA</h3>
+          <p>Runs headless frame analysis and visual inspection on every scene layout to prevent overlapping text, coordinate mismatches, or aspect ratio defects.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="workflow" class="section">
+      <div class="section-title">
+        <h2>Publishing Pipeline Workflow</h2>
+        <p>From textbook concept to published social video in four automated stages</p>
+      </div>
+      <div class="steps">
+        <div class="step-card">
+          <h4>1. Curriculum Ingestion</h4>
+          <p>Extracts lesson objectives and mathematical theorems from structured learning playlists.</p>
+        </div>
+        <div class="step-card">
+          <h4>2. Animation Scripting</h4>
+          <p>Generates precise vector math animations, coordinate grids, and visual demonstrations.</p>
+        </div>
+        <div class="step-card">
+          <h4>3. Audio & Stitching</h4>
+          <p>Binds audio narration, background music, and subtitles into portrait 9:16 video shorts.</p>
+        </div>
+        <div class="step-card">
+          <h4>4. TikTok Direct Post</h4>
+          <p>Securely authorizes channel ownership via OAuth 2.0 and uploads the short to TikTok.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="banner">
+        <h2>Built for Educational Creators</h2>
+        <p>
+          Edgaged is an internal creator tool designed to bring engaging, accurate, and visually stunning math and physics lessons to TikTok learners worldwide.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div>
+        <div class="logo">📐 <span>Edgaged</span> Studio</div>
+        <p style="margin-top: 0.5rem; color: #64748b; font-size: 0.9rem;">
+          Educational Video Generation & Publishing Suite.<br>© 2026 Edgaged. All rights reserved.
+        </p>
+      </div>
+      <div class="footer-links">
+        <h4 style="color: var(--text-heading); margin-bottom: 0.75rem;">Legal & Compliance</h4>
+        <a href="terms.html">Terms of Service</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <div class="footer-links">
+        <h4 style="color: var(--text-heading); margin-bottom: 0.75rem;">Developer & Support</h4>
+        <a href="https://github.com/shahed-iit-du/edgaged" target="_blank">GitHub Repository</a>
+        <span style="color: #64748b; font-size: 0.9rem;">Contact: shahed.iit.du@gmail.com</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
